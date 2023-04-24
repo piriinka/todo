@@ -1,0 +1,88 @@
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.banner{
+    height: 35vh;
+    background-image:linear-gradient(to right,rgba(205, 224, 244, 0.5),rgba(48, 141, 240, 0.5)),url('./meggy.jpg');
+    background-position: center;
+}
+header{
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 1rem;
+    font-size:3vw;
+    text-shadow: 0.5rem 0.5rem 1rem rgba(68, 68, 236,0.3);
+}
+@media screen and (min-width:960px){
+    header{
+        margin-top:-23vh;
+    }
+}
+@media screen and (max-width:500px){
+    header{
+        margin-top:-15vh;
+    }
+}
+@media screen and (min-width:501px) and (max-width:959px){
+    header{
+        margin-top:-18vh;
+    }
+}
+
+main{
+    margin:0 auto;
+    max-width: 500px;
+  
+}
+.input-container{
+    margin-top:3rem;
+    background-color: white;
+    padding:1rem;
+    border-radius:0.25rem;
+    display: flex;
+    justify-content: space-between;
+    box-shadow:0.5rem 0.5rem 1rem rgba(68, 68, 236,0.3);
+}
+input{
+    border:none;
+    width: 90%;
+}
+input:focus{
+    outline:none;
+}
+.fa-square-plus{
+    cursor: pointer;
+    color:blue;
+}
+.todolist-container{
+    margin-top:2rem;
+    border-radius:0.25rem;
+    box-shadow:0.5rem 0.5rem 1rem rgba(68, 68, 236,0.3);
+    padding: 1rem;
+    height: 50vh;
+    overflow: auto;
+}
+.todo-item{
+    border-bottom:1px solid rgb(248, 242, 242);
+    display:flex;
+    justify-content:space-between;
+    padding:1rem 0;
+}
+.fa-trash{
+    color:red;
+    cursor: pointer;
+}
+.fa-circle-check{
+    cursor:pointer;
+}
+.done{
+    text-decoration: line-through;
+
+}
+.green{
+    color:green;
+}

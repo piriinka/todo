@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+    <title>Todos</title>
+</head>
+<body>
+    <div class="banner"></div> 
+    <header>
+        <h1>My todos</h1>
+    </header>
+    <main>
+        <div class="input-container">
+            <input type="text" placeholder="add new task..." id="descr">
+            <i class="fa-regular fa-square-plus fa-2x" onclick="add()"></i>
+        </div>
+        <div class="todolist-container">
+            <div class="todos"></div>
+        </div>
+    </main>
+   
+    <script>
+        const delIcon='<i class="fa-solid fa-trash fa-2x" onclick="del(this)"></i>'
+        //const checkIcon='<i class="fa-regular fa-circle-check fa-2x" onclick="myToggle(this)"></i>'
+        const checkIcon=(cls='')=>`<i class="fa-regular fa-circle-check fa-2x ${cls}" onclick="myToggle(this)"></i>`
+
+        let myTodos=localStorage.getItem('myTodos') ? JSON.parse(localStorage['myTodos']) : [];
+console.log(myTodos)
+
+        let todos=document.querySelector('.todos')
+
+        const renderTodoList=(arr)=>{
+            todos.innerHTML='';
+            arr.sort((obj1,obj2)=>obj2.id-obj1.id)
+            arr.forEach(obj=>{
+                console.log(obj)
+                let className1=obj.status ? 'done' : ''
+                let className2=obj.status ? 'green' : ''
+                todos.innerHTML+=`<div id=${obj.id} class="todo-item">
+                                    ${checkIcon(className2)}
+                                    <span class=${className1}>${obj.descr}</span>
+                                    ${delIcon}
+                                </div>`
+            })
+        }
+        //első látogatáskor:
+        renderTodoList(myTodos)
+
+        const add=()=>{
+            let descr=document.getElementById('descr').value;
+            if(descr.length==0)
+                return
+            let status=false
+            let id=new Date().getTime();
+            myTodos=[...myTodos,{id,descr,status}];
+            renderTodoList(myTodos)
+            localStorage['myTodos']=JSON.stringify(myTodos)
+            document.getElementById('descr').value=''
+        }
+
+        const del=(domObj)=>{
+            let id=domObj.parentNode.id
+            console.log(id)
+            myTodos=myTodos.filter(obj=>obj.id!=id)
+            renderTodoList(myTodos)
+            localStorage['myTdos']=JSON.stringify(myTodos)
+        }
+
+        const myToggle=(domObj)=>{
+            let id=domObj.parentNode.id
+            myTodos.forEach(obj=>{
+                if(obj.id==id)
+                    //obj.status=obj.status ? false : true
+                    obj.status=!obj.status
+            })
+            renderTodoList(myTodos)
+            localStorage['myTodos']=JSON.stringify(myTodos)
+        }
+    </script>
+</body>
+</html>
